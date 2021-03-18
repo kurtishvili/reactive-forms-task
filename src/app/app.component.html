@@ -1,0 +1,35 @@
+<h1>Animals Shelter Volunteer Form</h1>
+<form [formGroup]="volunteerForm" (ngSubmit)="onSubmit()" >
+  <h2>Personal Information</h2>
+  <label>First name
+    <input type="text" formControlName="name" placeholder="Required" >
+  </label>
+  <label>Phone Number
+    <input type="text" formControlName="phoneNumber" placeholder="Required">
+  </label>
+  <label>Select Preffered Location</label>
+  <select formControlName="prefferedLocation" (change)="selectLocation($event)">
+    <option *ngFor="let loc of locations" [ngValue]="loc"> {{loc}} </option>
+  </select>
+  <h2>Please select what animals you are comfortable working with, if any: </h2>
+  <div formGroupName="animals" class="groupping">
+    <label> Dogs
+      <input type="checkbox" formControlName="dogs">
+    </label>
+    <label> Cats
+      <input type="checkbox" formControlName="cats">
+    </label>
+    <label> Reptiles
+      <input type="checkbox" formControlName="reptiles">
+    </label>
+  </div>
+  <h2>Reference(s)</h2>
+  <div formArrayName="references" class="groupping" *ngFor="let ref of references.controls; let i=index">
+    <label>Reference Email:
+      <input type="text" placeholder="optional" [formControlName]="i" >
+      <button type="button" (click)="removeEmail(i)" >X</button>
+    </label>
+  </div>
+  <button type="button" (click)="addEmail()" >Add Another Reference</button>
+  <button type="submit">Apply</button>
+</form>
